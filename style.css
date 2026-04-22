@@ -1,0 +1,298 @@
+/* ══════════════════════════════════════════════════════
+   CSS კუსტომური ცვლადები – Dark & Light თემები
+   ══════════════════════════════════════════════════════ */
+:root {
+  --bg-primary:   #1A103D;
+  --bg-secondary: #231550;
+  --bg-glass:     rgba(167, 139, 250, 0.07);
+  --border-glass: rgba(167, 139, 250, 0.18);
+  --accent:       #A78BFA;
+  --accent-glow:  rgba(167, 139, 250, 0.35);
+  --accent-2:     #F472B6;
+  --text-primary: #FDFCFE;
+  --text-muted:   #C4B5FD;
+  --text-dim:     #7C6FAD;
+  --card-hover:   rgba(167, 139, 250, 0.12);
+  --shadow-glow:  0 0 40px rgba(167,139,250,0.2);
+  --noise-opacity: 0.03;
+}
+
+[data-theme="light"] {
+  --bg-primary:   #F3F0FF;
+  --bg-secondary: #E9E4FF;
+  --bg-glass:     rgba(139, 92, 246, 0.06);
+  --border-glass: rgba(139, 92, 246, 0.22);
+  --accent:       #7C3AED;
+  --accent-glow:  rgba(124, 58, 237, 0.25);
+  --accent-2:     #DB2777;
+  --text-primary: #1E0A3C;
+  --text-muted:   #4C1D95;
+  --text-dim:     #7C3AED;
+  --card-hover:   rgba(124, 58, 237, 0.09);
+  --shadow-glow:  0 0 40px rgba(124,58,237,0.15);
+  --noise-opacity: 0.02;
+}
+
+/* ══════════════════════════════════════════════════════
+   გლობალური სტილები
+   ══════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 0.4s, color 0.4s;
+}
+
+/* ფონის ნოიზ-ტექსტურა სიღრმისთვის */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: var(--noise-opacity);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ════ ამბიენტ ორბები ════ */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+  animation: orb-float 12s ease-in-out infinite alternate;
+}
+.orb-1 { width: 500px; height: 500px; background: rgba(167,139,250,0.15); top: -150px; left: -100px; animation-delay: 0s; }
+.orb-2 { width: 400px; height: 400px; background: rgba(244,114,182,0.1); bottom: -100px; right: -80px; animation-delay: -6s; }
+.orb-3 { width: 300px; height: 300px; background: rgba(96,165,250,0.08); top: 40%; left: 55%; animation-delay: -3s; }
+
+@keyframes orb-float {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(30px, -30px) scale(1.08); }
+}
+
+/* ════ Glassmorphism ბარათი ════ */
+.glass {
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.glass:hover { background: var(--card-hover); border-color: var(--accent); box-shadow: var(--shadow-glow); }
+
+/* ════ ბებას ბრენდი – სათაური ════ */
+.brand { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; }
+
+/* ════ ღილაკი – პრაიმარი ════ */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 36px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.3s, opacity 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  border-radius: inherit;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px var(--accent-glow); }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* ════ ღილაკი – მეორეული ════ */
+.btn-ghost {
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--border-glass);
+  border-radius: 14px;
+  padding: 12px 28px;
+  font-size: 0.95rem;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--accent); background: var(--bg-glass); }
+
+/* ════ Input ════ */
+.input-field {
+  background: var(--bg-glass);
+  border: 1.5px solid var(--border-glass);
+  border-radius: 14px;
+  padding: 14px 20px;
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.input-field::placeholder { color: var(--text-dim); }
+.input-field:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+
+/* ════ უნარის ბარათი (skill tag) ════ */
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 50px;
+  border: 1.5px solid var(--border-glass);
+  background: var(--bg-glass);
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+.skill-tag:hover { border-color: var(--accent); color: var(--accent); background: var(--card-hover); }
+.skill-tag.selected {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, rgba(167,139,250,0.22), rgba(244,114,182,0.12));
+  color: var(--text-primary);
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+.skill-tag .check-icon { display: none; width: 16px; height: 16px; }
+.skill-tag.selected .check-icon { display: block; color: var(--accent); }
+
+/* ════ პროგრეს ბარი ════ */
+.match-bar-bg { background: var(--border-glass); border-radius: 99px; height: 8px; overflow: hidden; }
+.match-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ════ ანიმაციები ════ */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fade-up 0.6s ease forwards; }
+.delay-1 { animation-delay: 0.1s; opacity: 0; }
+.delay-2 { animation-delay: 0.2s; opacity: 0; }
+.delay-3 { animation-delay: 0.3s; opacity: 0; }
+.delay-4 { animation-delay: 0.4s; opacity: 0; }
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 var(--accent-glow); }
+  70%  { box-shadow: 0 0 0 14px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.pulse { animation: pulse-ring 2s ease-out infinite; }
+
+/* ════ Step Indicator ════ */
+.step-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--border-glass);
+  transition: background 0.3s, transform 0.3s;
+}
+.step-dot.active { background: var(--accent); transform: scale(1.4); }
+.step-dot.done   { background: var(--accent-2); }
+
+/* ════ Theme Toggle ════ */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: 50px;
+  padding: 8px 16px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-family: 'DM Sans', sans-serif;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ════ პროფესიის ბარათი შედეგში ════ */
+.career-card {
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+}
+.career-card-rank-1 { border: 2px solid var(--accent); box-shadow: 0 0 60px var(--accent-glow); }
+.career-card-rank-2 { border: 1.5px solid var(--border-glass); opacity: 0.85; }
+.career-card-rank-3 { border: 1.5px solid var(--border-glass); opacity: 0.7; }
+
+.rank-badge {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  padding: 4px 14px;
+  border-radius: 99px;
+}
+
+/* ════ ვიდეო iframe ════ */
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.video-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ════ სქროლბარი ════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-glass); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ════ Divider ════ */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-glass), transparent);
+  margin: 0 auto;
+}
+
+/* ════ hidden ════ */
+.hidden { display: none !important; }
+
+/* ════ ემოჯი ბეჯი კატეგორიებისთვის ════ */
+.cat-badge {
+  font-size: 0.75rem;
+  padding: 2px 10px;
+  border-radius: 99px;
+  background: var(--bg-secondary);
+  color: var(--text-dim);
+  border: 1px solid var(--border-glass);
+}
+
+/* responsive */
+@media (max-width: 640px) {
+  .brand { font-size: clamp(2.5rem, 12vw, 4rem) !important; }
+}
