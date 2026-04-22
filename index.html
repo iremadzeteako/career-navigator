@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ka" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Career Navigator | პროფესიული ორიენტაცია</title>
+
+  <!-- Google Fonts: Bebas Neue სათაურებისთვის + DM Sans ტექსტისთვის -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- კუსტომური სტილები -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     ამბიენტ დეკორი — ფონის მოძრავი ორბები
+     ══════════════════════════════════════════════════════ -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- თემის გადართვა (Dark / Light) -->
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀️ Light</button>
+
+<!-- ══════════════════════════════════════════════════════
+     მთავარი კონტეინერი
+     ══════════════════════════════════════════════════════ -->
+<div id="app" class="relative z-10 min-h-screen flex flex-col items-center justify-start">
+
+  <!-- Step Indicator — 3 წერტილი ქვევით -->
+  <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex gap-3 items-center" id="stepIndicator">
+    <div class="step-dot active" id="dot-1"></div>
+    <div class="step-dot"        id="dot-2"></div>
+    <div class="step-dot"        id="dot-3"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 1 — ავტორიზაცია / სახელის შეყვანა
+       ══════════════════════════════════════════ -->
+  <section id="step1" class="w-full max-w-lg mx-auto px-6 min-h-screen flex flex-col justify-center py-20">
+    <div class="fade-up">
+
+      <!-- ლოგო / ბრენდი -->
+      <div class="mb-2 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center pulse"
+             style="background:linear-gradient(135deg,#A78BFA,#F472B6)">
+          <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <span class="brand text-2xl" style="color:var(--accent)">CAREER NAVIGATOR</span>
+      </div>
+
+      <!-- მთავარი სათაური -->
+      <h1 class="brand mt-6 text-6xl leading-none" style="color:var(--text-primary)">
+        აღმოაჩინე<br/>
+        <span style="background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+          შენი გზა.
+        </span>
+      </h1>
+
+      <p class="mt-5 text-lg leading-relaxed" style="color:var(--text-dim)">
+        გვითხარი ვინ ხარ და ჩვენ მოგძებნით პროფესიას, რომელიც ზუსტად შეესაბამება შენს უნარებს.
+      </p>
+
+      <!-- ფორმა -->
+      <div class="mt-10 space-y-4">
+        <div>
+          <label class="block mb-2 text-sm font-medium" style="color:var(--text-muted)">სახელი</label>
+          <input type="text" id="firstName" placeholder="მაგ. გიორგი" class="input-field" />
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-medium" style="color:var(--text-muted)">გვარი</label>
+          <input type="text" id="lastName" placeholder="მაგ. ბერიძე" class="input-field" />
+        </div>
+      </div>
+
+      <button class="btn-primary mt-8 w-full text-base" onclick="goToStep2()">
+        დაწყება →
+      </button>
+
+      <p class="mt-4 text-center text-xs" style="color:var(--text-dim)">
+        შენი მონაცემები ინახება მხოლოდ ბრაუზერის მეხსიერებაში.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       STEP 2 — უნარების შერჩევა
+       ══════════════════════════════════════════ -->
+  <section id="step2" class="hidden w-full max-w-4xl mx-auto px-6 py-20 min-h-screen">
+
+    <!-- სათაური -->
+    <div class="fade-up">
+      <p class="text-sm font-medium mb-1" style="color:var(--text-dim)">ნაბიჯი 2 / 3</p>
+      <h2 class="brand text-5xl leading-tight" id="step2Title">მონიშნე შენი<br/>
+        <span style="background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+          უნარები
+        </span>
+      </h2>
+      <p class="mt-3 text-base" style="color:var(--text-dim)">
+        შეარჩიე ყველა უნარი, რომელიც გაქვს ან კარგად გესმის. მინ. 3 საჭიროა.
+      </p>
+    </div>
+
+    <!-- ძებნა + კარჩამკეტი -->
+    <div class="mt-8 flex flex-col sm:flex-row gap-4 fade-up delay-1">
+      <div class="relative flex-1">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" style="color:var(--text-dim)"
+             fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input type="text" id="skillSearch" placeholder="მოძებნე უნარი..." class="input-field pl-12"
+               oninput="filterSkills()" />
+      </div>
+      <div class="flex gap-2 flex-wrap">
+        <button class="btn-ghost text-sm" onclick="clearAllSkills()">გასუფთავება</button>
+        <span class="btn-ghost text-sm cursor-default" id="selectedCount"
+              style="border-color:var(--accent);color:var(--accent)">
+          0 შერჩეული
+        </span>
+      </div>
+    </div>
+
+    <!-- კატეგორიების ფილტრი -->
+    <div class="mt-4 flex flex-wrap gap-2 fade-up delay-2" id="categoryFilters"></div>
+
+    <!-- უნარების გრიდი — JS-ით გენერირდება -->
+    <div id="skillsGrid" class="mt-6 flex flex-wrap gap-3 fade-up delay-3"></div>
+
+    <!-- გაგრძელება -->
+    <div class="mt-10 flex justify-end fade-up delay-4">
+      <button class="btn-primary" id="step2NextBtn" onclick="goToStep3()" disabled>
+        შედეგების ნახვა →
+      </button>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       STEP 3 — შედეგები
+       ══════════════════════════════════════════ -->
+  <section id="step3" class="hidden w-full max-w-5xl mx-auto px-6 py-20">
+
+    <div class="fade-up">
+      <p class="text-sm font-medium mb-1" style="color:var(--text-dim)">ნაბიჯი 3 / 3 — შედეგები</p>
+      <h2 class="brand text-5xl leading-tight" id="resultTitle"></h2>
+    </div>
+
+    <!-- TOP 3 პროფესიის ბარათები — JS-ით გენერირდება -->
+    <div id="careersGrid" class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 fade-up delay-1"></div>
+
+    <!-- Divider -->
+    <div class="divider my-12 fade-up delay-2" style="max-width:100%"></div>
+
+    <!-- დეტალური ანალიზი — JS-ით გენერირდება -->
+    <div id="detailPanel" class="fade-up delay-2"></div>
+
+    <!-- ხელახლა ცდა -->
+    <div class="mt-12 flex justify-center fade-up delay-3">
+      <button class="btn-ghost" onclick="restart()">← თავიდან დაწყება</button>
+    </div>
+
+  </section>
+
+</div><!-- /app -->
+
+<!-- JavaScript ლოგიკა -->
+<script src="js/app.js"></script>
+
+</body>
+</html>
